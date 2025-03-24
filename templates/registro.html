@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static', filename='materialize.min.css')}}">
+    <!-- <link rel="stylesheet" href="materialize/css/materialize.min.css"> -->
+
+    <title>Registro</title>
+</head>
+<body class="grey lighten-3">
+    <nav>
+        <div class="nav-wrapper">
+        <a href="#" class="brand-logo">MiApp</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="{{url_for('auth.login')}}">Login</a></li>
+        </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Registro de Usuario</h1>
+
+        {% with mensajes = get_flashed_messages(with_categories=True) %}
+            {% if mensajes %}
+                {% for category, message in mensajes %}
+                    <div class="card-panel {{ 'green lighten-4' if category == 'success' else 'red lighten-4' }}">
+                        <span class="{{ 'green-text' if category == 'success' else 'red-text' }}">{{ message }}</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="card">
+            <div class="card-content">
+                <form method="post" enctype="multipart/form-data">
+                    <label for="cui">CUI: </label>
+                    <input type="number" name="cui" required placeholder="XXXXXXXXXXXXX" autofocus autocomplete="off">
+                    <br>
+                    <label for="name">Nombres: </label>
+                    <input type="text" name="name" required >
+                    <br>
+                    <label for="dateBorn">Fecha de Nacimiento: </label>
+                    <input type="text" name="dateBorn" class="datepicker">
+                    <br>
+                    <label for="correo">Correo Electrónico: </label>
+                    <input type="email" name="email" required placeholder="example@mail.com" autofocus autocomplete="off">
+                    <br>
+                    <label for="password">Contraseña: </label>
+                    <input type="password" name="password" required minlength="5" maxlength="8" placeholder="*********">
+                    <br>
+                    <div class="file-field input-field">
+                        <div class="btn">
+                            <span>File</span>
+                            <input name="picture" type="file">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                        </div>
+                    </div>
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Ingresar
+                        <i class="material-icons right">send</i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.datepicker');
+            var instances = M.Datepicker.init(elems, { minDate: new Date(1995, 11, 17) });
+        });
+    </script>
+</body>
+</html>
