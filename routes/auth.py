@@ -18,7 +18,7 @@ def login():
 
         if user and user["password"] == password:
             session["cui"] = user["cui"]
-            return redirect(url_for("auth.home"))
+            return redirect(url_for("catalog.products"))
         else:
             flash("Credenciales incorrectas, inténtalo de nuevo", "danger")
 

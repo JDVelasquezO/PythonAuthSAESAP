@@ -8,12 +8,40 @@
     <link rel="stylesheet" href="{{url_for('static', filename='materialize.min.css')}}">
 
     <title>home</title>
+
+    <style>
+        body {
+            background-color: #f5f5f5;
+        }
+        .nav-wrapper {
+            padding: 0 20px;
+        }
+        .card {
+            border-radius: 15px;
+        }
+        .card-image img {
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+        .card-content {
+            text-align: center;
+        }
+        .profile-img {
+            width: 50%; /* Ajusta el tamaño */
+            object-fit: cover;
+            display: block;
+            margin: 0 auto 10px auto; /* Centrada y con espacio debajo */
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px; /* Bordes levemente redondeados, ajusta si quieres */
+        }
+    </style>
 </head>
 <body>
     <nav>
         <div class="nav-wrapper">
         <a href="#" class="brand-logo">MiApp</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="{{ url_for('catalog.products') }}">Catálogo</a></li>
             <li><a href="{{ url_for('auth.logout') }}">Cerrar Sesión</a></li>
         </ul>
         </div>
@@ -22,19 +50,28 @@
     <div class="container">
         {% if session["cui"] %}
         <div class="row">
-            <div class="col s12 m7 offset-m2">
-                <h2 class="header">{{ user.name }}</h2>
-                <div class="card horizontal medium">
-                    <div class="card-image">
-                        <img src="{{ url_for('static', filename='uploads/'+user.picture) }}" alt="">
+            <div class="col s12 m6 offset-m3">
+                <div class="card z-depth-3">
+                    <div class="card-content center-align">
+                        <img class="profile-img circle" src="{{ url_for('static', filename='uploads/' + user.picture) }}">
+                        <h5 class="teal-text text-darken-3">{{ user.name }}</h5>
+                        <p><strong>CUI:</strong> {{ user.cui }}</p>
+                        <p><strong>Fecha de nacimiento:</strong> {{ user.dateBorn }}</p>
+                        <p><strong>Email:</strong> {{ user.email }}</p>
                     </div>
-
-                    <div class="card-stacked">
-                        <div class="card-content">
-                            <p><strong>CUI:</strong> {{ user.cui }}</p>
-                            <p><strong>Email:</strong> {{ user.email }}</p>
-                            <p><strong>F. Nac:</strong> {{ user.dateBorn }}</p>
-                        </div>
+                    <div class="card-action center">
+                        <a href="#" class="btn waves-effect waves-light teal darken-3">Editar Perfil</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="row">
+            <div class="col s12 m6 offset-m3">
+                <div class="card z-depth-3 center-align">
+                    <div class="card-content">
+                        <h5 class="red-text text-darken-2">No has iniciado sesión</h5>
+                        <a href="{{ url_for('auth.login') }}" class="btn waves-effect waves-light teal darken-3">Iniciar sesión</a>
                     </div>
                 </div>
             </div>

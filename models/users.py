@@ -2,7 +2,7 @@ import json
 import os
 
 # Ruta del archivo JSON
-USERS_FILE = 'users.json'
+USERS_FILE = os.path.join("data", "users.json")
 
 # Función para cargar el archivo JSON
 def loadUsers():

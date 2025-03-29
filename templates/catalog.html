@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static', filename='materialize.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+    
+    <title>home</title>
+</head>
+<body>
+    <nav>
+        <div class="nav-wrapper">
+        <a href="#" class="brand-logo">MiApp</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="{{ url_for('auth.home') }}">Perfil</a></li>
+            <li><a href="{{ url_for('auth.logout') }}">Cerrar Sesión</a></li>
+        </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2 class="center-align">Catálogo de Productos</h2>
+        <div class="row">
+            {% for product in products %}
+            <div class="col s12 m6 l4">
+                <div class="card">
+                    <div class="card-image">
+                        <img 
+                        class="product-image"
+                        src="{{ url_for('static', filename='uploads/'+product.picture) }}" 
+                        alt="{{ product.name }}">
+                    </div>
+                    <div class="card-content product-content">
+                        <span class="card-title">{{ product.name }}</span>
+                        <p><strong>Precio:</strong> ${{ product.price }}</p>
+                    </div>
+                    <div class="card-action center-align">
+                        <a href="#" class="btn blue">Agregar al carrito</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>
