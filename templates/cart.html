@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static', filename='materialize.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+
+    <title>home</title>
+</head>
+<body>
+    <nav class="teal darken-3">
+        <div class="nav-wrapper">
+        <a href="#" class="brand-logo">MiApp</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="{{ url_for('auth.home') }}">Perfil</a></li>
+            <li><a href="{{ url_for('catalog.products') }}">Catálogo</a></li>
+            <li><a href="{{ url_for('auth.logout') }}">Cerrar Sesión</a></li>
+        </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2 class="center-align">Carrito de Compras</h2>
+
+        <table class="striped">
+            <thead>
+                <tr>
+                    <th>Imagen</th>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for productId, item in cart.items() %}
+                <tr>
+                    <td>
+                        <img width="50" src="{{ url_for('static', filename='uploads/'+item.picture) }}" alt="Imagen">
+                    </td>
+                    <td>
+                        {{ item.name }}
+                    </td>
+                    <td>
+                        {{ item.price }}
+                    </td>
+                    <td>
+                        {{ item.quantity }}
+                    </td>
+                    <td>
+                        <button class="btn red">Eliminar</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>

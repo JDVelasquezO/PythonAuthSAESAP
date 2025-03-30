@@ -11,11 +11,15 @@
     <title>home</title>
 </head>
 <body>
-    <nav>
+    <nav class="teal darken-3">
         <div class="nav-wrapper">
         <a href="#" class="brand-logo">MiApp</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="{{ url_for('auth.home') }}">Perfil</a></li>
+            <li><a href="{{ url_for('catalog.products') }}">Catálogo</a></li>
+            <li><a href="{{ url_for('cart.viewCart') }}">
+                <i class="material-icons">shopping_cart</i>
+            </a></li>
             <li><a href="{{ url_for('auth.logout') }}">Cerrar Sesión</a></li>
         </ul>
         </div>
@@ -38,7 +42,9 @@
                         <p><strong>Precio:</strong> ${{ product.price }}</p>
                     </div>
                     <div class="card-action center-align">
-                        <a href="#" class="btn blue">Agregar al carrito</a>
+                        <form method="post" action="{{ url_for('cart.addToCart', productId=product.id) }}">
+                            <button type="submit" class="btn blue">Agregar al carrito</button>
+                        </form>
                     </div>
                 </div>
             </div>

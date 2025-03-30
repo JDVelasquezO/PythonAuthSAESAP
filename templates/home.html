@@ -37,11 +37,13 @@
     </style>
 </head>
 <body>
-    <nav>
+    <nav class="teal darken-3">
         <div class="nav-wrapper">
         <a href="#" class="brand-logo">MiApp</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="{{ url_for('auth.home') }}">Perfil</a></li>
             <li><a href="{{ url_for('catalog.products') }}">Catálogo</a></li>
+            <li><a href="{{ url_for('cart.viewCart') }}"></a></li>
             <li><a href="{{ url_for('auth.logout') }}">Cerrar Sesión</a></li>
         </ul>
         </div>
