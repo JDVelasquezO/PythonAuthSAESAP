@@ -58,3 +58,11 @@ def viewCart():
     total = sum(item["price"] * item["quantity"] for item in cart.values())
     cartCount = getCartCount()
     return render_template("cart.html", cart=cart, total=total, cartCount=cartCount)
+
+@cart_bp.route("/remove/<int:productId>", methods=["POST"])
+def removeFromCart(productId):
+    cart = getCart()
+    if str(productId) in (cart):
+        del cart[str(productId)]
+        saveCart(cart)
+    return redirect(url_for("cart.viewCart"))

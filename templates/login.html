@@ -1,61 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends "base.html" %}
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="{{url_for('static', filename='materialize.min.css')}}">
-    <!-- <link rel="stylesheet" href="materialize/css/materialize.min.css"> -->
+{% block title %}Iniciar Sesión{% endblock %}
 
-    <title>Formulario</title>
-</head>
-<body class="grey lighten-3">
-    <nav class="teal darken-3">
-        <div class="nav-wrapper">
-        <a href="#" class="brand-logo">MiApp</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="{{ url_for('auth.registro') }}">Registro</a></li>
-        </ul>
-        </div>
-    </nav>
+{% block navbar_links %}
+    <li><a href="{{ url_for('auth.registro') }}">Registro</a></li>
+{% endblock %}
 
-    <div class="container">
-        <h1>Iniciar Sesión</h1>
-        {% with mensajes = get_flashed_messages(with_categories=True) %}
-            {% if mensajes %}
-                {% for category, message in mensajes %}
-                <div class="card-panel {{ 'green lighten-4' if category == 'success' else 'red lighten-4' }}">
-                    <span class="{{ 'green-text' if category == 'success' else 'red-text' }}">{{ message }}</span>
-                </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
+{% block header %}Iniciar Sesión{% endblock %}
+{% block content %}
+    <div class="card">
+        <div class="card-content">
+            <form method="post">
+                <label for="cui">CUI: </label>
+                <input type="number" name="cui" required placeholder="XXXXXXXX" autofocus autocomplete="off">
+                <br>
+                <label for="password">Contraseña: </label>
+                <input type="password" name="password" required minlength="5" maxlength="8" placeholder="*********">
+                <br>
 
-        <div class="card">
-            <div class="card-content">
-                <form method="post">
-                    <label for="cui">CUI: </label>
-                    <input type="number" name="cui" required placeholder="XXXXXXXX" autofocus autocomplete="off">
-                    <br>
-                    <label for="password">Contraseña: </label>
-                    <input type="password" name="password" required minlength="5" maxlength="8" placeholder="*********">
-                    <br>
-
-                    <button class="btn waves-effect waves-light" type="submit" name="action">Ingresar
-                        <i class="material-icons right">send</i>
-                    </button>
-                </form>
-            </div>
+                <button class="btn waves-effect waves-light" type="submit" name="action">Ingresar
+                    <i class="material-icons right">send</i>
+                </button>
+            </form>
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var elems = document.querySelectorAll('.modal');
             var instances = M.Modal.init(elems, {});
         });
     </script>
-</body>
-</html>
+{% endblock %}

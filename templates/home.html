@@ -1,86 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends "base.html" %}
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="{{url_for('static', filename='materialize.min.css')}}">
+{% block title %}Perfil{% endblock %}
 
-    <title>home</title>
+{% block navbar_links %}
+    <li><a href="{{ url_for('auth.home') }}">Perfil</a></li>
+    <li><a href="{{ url_for('catalog.products') }}">Catálogo</a></li>
+    <li><a href="{{ url_for('cart.viewCart') }}"></a></li>
+    <li><a href="{{ url_for('cart.viewCart') }}">
+        <i class="material-icons">shopping_cart</i>
+    </a></li>
+    <li><a href="{{ url_for('auth.logout') }}">Cerrar Sesión</a></li>
+{% endblock %}
 
-    <style>
-        body {
-            background-color: #f5f5f5;
-        }
-        .nav-wrapper {
-            padding: 0 20px;
-        }
-        .card {
-            border-radius: 15px;
-        }
-        .card-image img {
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
-        }
-        .card-content {
-            text-align: center;
-        }
-        .profile-img {
-            width: 50%; /* Ajusta el tamaño */
-            object-fit: cover;
-            display: block;
-            margin: 0 auto 10px auto; /* Centrada y con espacio debajo */
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-            border-radius: 10px; /* Bordes levemente redondeados, ajusta si quieres */
-        }
-    </style>
-</head>
-<body>
-    <nav class="teal darken-3">
-        <div class="nav-wrapper">
-        <a href="#" class="brand-logo">MiApp</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="{{ url_for('auth.home') }}">Perfil</a></li>
-            <li><a href="{{ url_for('catalog.products') }}">Catálogo</a></li>
-            <li><a href="{{ url_for('cart.viewCart') }}"></a></li>
-            <li><a href="{{ url_for('auth.logout') }}">Cerrar Sesión</a></li>
-        </ul>
-        </div>
-    </nav>
-
-    <div class="container">
-        {% if session["cui"] %}
-        <div class="row">
-            <div class="col s12 m6 offset-m3">
-                <div class="card z-depth-3">
-                    <div class="card-content center-align">
-                        <img class="profile-img circle" src="{{ url_for('static', filename='uploads/' + user.picture) }}">
-                        <h5 class="teal-text text-darken-3">{{ user.name }}</h5>
-                        <p><strong>CUI:</strong> {{ user.cui }}</p>
-                        <p><strong>Fecha de nacimiento:</strong> {{ user.dateBorn }}</p>
-                        <p><strong>Email:</strong> {{ user.email }}</p>
-                    </div>
-                    <div class="card-action center">
-                        <a href="#" class="btn waves-effect waves-light teal darken-3">Editar Perfil</a>
-                    </div>
+{% block content %}
+    {% if session["cui"] %}
+    <div class="row">
+        <div class="col s12 m6 offset-m3">
+            <div class="card z-depth-3">
+                <div class="card-content center-align">
+                    <img class="profile-img circle" src="{{ url_for('static', filename='uploads/' + user.picture) }}">
+                    <h5 class="teal-text text-darken-3">{{ user.name }}</h5>
+                    <p><strong>CUI:</strong> {{ user.cui }}</p>
+                    <p><strong>Fecha de nacimiento:</strong> {{ user.dateBorn }}</p>
+                    <p><strong>Email:</strong> {{ user.email }}</p>
+                </div>
+                <div class="card-action center">
+                    <a href="#" class="btn waves-effect waves-light teal darken-3">Editar Perfil</a>
                 </div>
             </div>
         </div>
-        {% else %}
-        <div class="row">
-            <div class="col s12 m6 offset-m3">
-                <div class="card z-depth-3 center-align">
-                    <div class="card-content">
-                        <h5 class="red-text text-darken-2">No has iniciado sesión</h5>
-                        <a href="{{ url_for('auth.login') }}" class="btn waves-effect waves-light teal darken-3">Iniciar sesión</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endif %}
     </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-</body>
-</html>
+    {% else %}
+    <div class="row">
+        <div class="col s12 m6 offset-m3">
+            <div class="card z-depth-3 center-align">
+                <div class="card-content">
+                    <h5 class="red-text text-darken-2">No has iniciado sesión</h5>
+                    <a href="{{ url_for('auth.login') }}" class="btn waves-effect waves-light teal darken-3">Iniciar sesión</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}

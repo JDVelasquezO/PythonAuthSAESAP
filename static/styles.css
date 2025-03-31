@@ -11,3 +11,28 @@
 .card-action {
     padding-bottom: 10px;
 }
+
+body {
+    background-color: #f5f5f5;
+}
+.nav-wrapper {
+    padding: 0 20px;
+}
+.card {
+    border-radius: 15px;
+}
+.card-image img {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+.card-content {
+    text-align: center;
+}
+.profile-img {
+    width: 50%; /* Ajusta el tamaño */
+    object-fit: cover;
+    display: block;
+    margin: 0 auto 10px auto; /* Centrada y con espacio debajo */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px; /* Bordes levemente redondeados, ajusta si quieres */
+}
