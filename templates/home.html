@@ -8,6 +8,9 @@
     <li><a href="{{ url_for('cart.viewCart') }}"></a></li>
     <li><a href="{{ url_for('cart.viewCart') }}">
         <i class="material-icons">shopping_cart</i>
+        {% if cartCount > 0 %}
+            <span class="cart-badge">{{ cartCount }}</span>
+        {% endif %}
     </a></li>
     <li><a href="{{ url_for('auth.logout') }}">Cerrar Sesión</a></li>
 {% endblock %}

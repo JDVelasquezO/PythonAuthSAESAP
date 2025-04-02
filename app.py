@@ -10,5 +10,10 @@ app.register_blueprint(auth_bp)
 app.register_blueprint(catalog_bp)
 app.register_blueprint(cart_bp)
 
+@app.context_processor
+def injectCartCount():
+    from routes.cart import getCartCount
+    return { "cartCount": getCartCount() }
+
 if __name__ == '__main__':
     app.run(debug=True)

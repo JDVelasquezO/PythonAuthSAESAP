@@ -6,9 +6,14 @@
     <li><a href="{{ url_for('auth.home') }}">Perfil</a></li>
     <li><a href="{{ url_for('catalog.products') }}">Catálogo</a></li>
     <li><a href="{{ url_for('cart.viewCart') }}"></a></li>
-    <li><a href="{{ url_for('cart.viewCart') }}">
-        <i class="material-icons">shopping_cart</i>
-    </a></li>
+    <li>
+        <a href="{{ url_for('cart.viewCart') }}">
+            <i class="material-icons">shopping_cart</i>
+            {% if cartCount > 0 %}
+                <span class="cart-badge">{{ cartCount }}</span>
+            {% endif %}
+        </a>
+    </li>
     <li><a href="{{ url_for('auth.logout') }}">Cerrar Sesión</a></li>
 {% endblock %}
 
@@ -49,4 +54,61 @@
             {% endfor %}
         </tbody>
     </table>
+
+    <div id="modalPago" class="modal">
+        <div class="modal-content">
+            <h4>Seleccionar Método de Pago</h4>
+            <p>Elige como deseas pagar:</p>
+
+            <form id="pagoForm">
+                <p>
+                    <label>
+                        <input type="radio" name="tipoPago" value="credito" checked>
+                        <span>Tarjeta de Crédito</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="radio" name="tipoPago" value="debito">
+                        <span>Tarjeta de Débito</span>
+                    </label>
+                </p>
+                <div class="input-field">
+                    <input type="text" id="numeroTarjeta" placeholder="Numero de Tarjeta" required>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <a href="#" class="modal-close btn red">Cancelar</a>
+                <a href="#" class="btn green" onclick="simularPago()">Confirmar Pago</a>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="right-align">Total: ${{ total }}</h4>
+    <div class="center-align">
+        <a href="{{ url_for('catalog.products') }}" class="btn grey">Seguir Comprando</a>
+        <a href="#modalPago" class="btn modal-trigger">Pagar</a>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var modals = document.querySelectorAll(".modal");
+            M.Modal.init(modals);
+        });
+
+        function simularPago() {
+            let tipoPago = document.querySelector('input[name="tipoPago"]:checked').value;
+            let numeroTarjeta = document.getElementById("numeroTarjeta").value;
+
+            M.toast({
+                html: `Pago con ${tipoPago === 'credito' ? 'Tarjeta de Crédito' : 'Tarjeta de Débito'} realizado con exito`,
+                classes: 'green'
+            });
+
+            setTimeout(() => {
+                var instaces = M.Modal.getInstance(document.getElementById("modalPago"));
+                instaces.close();
+            }, 1000);
+        }
+    </script>
 {% endblock %}
