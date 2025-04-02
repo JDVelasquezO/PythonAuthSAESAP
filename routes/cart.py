@@ -26,7 +26,6 @@ def addToCart(productId):
         # Añadimos producto repetido
         cart[str(productId)]["quantity"] += 1
     else:
-        print("Aqui llego")
         # Añadimos producto por primera vez
         cart[str(productId)] = {
             "name": product["name"],
@@ -34,7 +33,6 @@ def addToCart(productId):
             "quantity": 1,
             "picture": product["picture"]
         }
-        print(cart)
 
     saveCart(cart)
     return redirect(url_for("catalog.products"))
